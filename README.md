@@ -4,8 +4,7 @@ Student: João Victor de Oliveira Novaes
 
 #USP: 11360632
  
-This project consists of developing an algorithm to segment blood vessels into retinal images. The idea is to combine image restoration and image segmentation techniques, to remove any noise from the images and then subtract the sago water vessels.
-Images of the fundus of the eye (retina) can be used to discover diseases such as diabetes, hypertension and other cardiovascular diseases. In addition, some studies point out that the detection of blood vessels can help analyze the vascular health of the entire body of the patient.  This work will use the Drive database (https://www.isi.uu.nl/Research/Databases/DRIVE/)
+This project consists of developing an algorithm to segment blood vessels into retinal images. The idea is to combine techniques of image restoration and image segmentation, remove possible noises from the images and subtract the blood vessels. Images of the fundus of the eye (retina) can be used to discover diseases such as diabetes, hypertension and other cardiovascular diseases. In addition, some studies point out that the detection of blood vessels can help analyze the vascular health of the entire body of the patient.  This work will use the Drive database (https://www.isi.uu.nl/Research/Databases/DRIVE/)
 
 An example of a database image:
 

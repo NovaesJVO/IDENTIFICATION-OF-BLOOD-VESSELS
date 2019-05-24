@@ -14,7 +14,7 @@ An example of a database image:
 O principal objetivo deste trabalho, é tentar replicar os resultados dos trabalhos de [Soares (2006)](http://www.teses.usp.br/teses/disponiveis/45/45134/tde-24072007-174800/en.php), [Saleh et al. (2011)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3138933/) and [Santos et al.(2017)](./1019.pdf)
 
 
-#Steps
+### Steps ###
 **1. Selecting Color Channels**
 The literature works using two color channels: the RGB G and the CIELAB L. Initially, the two channels will be used in order to verify which of them best fit this work.
 
@@ -35,7 +35,7 @@ During each of the steps described, the possibility of using some other method o
 **5. Results**
 The results obtained by the developed algorithm will be compared to the manual extraction and the works of the literature.
 
-###References ###
+### References ###
 
 1. **DRIVE Dataset Reference**: Staal, J., Abràmoff, M. D., Niemeijer, M., Viergever, M. A., and Van Ginneken, B. (2004). Ridge-based vessel segmentation in color images of the retina. IEEE transactions on medical imaging, 23(4):501–509.
 

@@ -1,4 +1,4 @@
-Image Processing Class (SCC5830) - Final Project
+Image Processing Class (SCC5830) - Final Project (05/2019)
 
 Student: João Victor de Oliveira Novaes
 
@@ -6,13 +6,12 @@ Student: João Victor de Oliveira Novaes
  
 This project consists of developing an algorithm to segment blood vessels into retinal images. The idea is to combine techniques of image restoration and image segmentation, remove possible noises from the images and subtract the blood vessels. Images of the fundus of the eye (retina) can be used to discover diseases such as diabetes, hypertension and other cardiovascular diseases. In addition, some studies point out that the detection of blood vessels can help analyze the vascular health of the entire body of the patient.  This work will use the Drive database (https://www.isi.uu.nl/Research/Databases/DRIVE/), this database provides a set of 40 images, and for each of these images, there is another image where the blood vessels were manually extracted.
 
+The main objective of this work is to try to replicate the results of the [Soares (2006)](http://www.teses.usp.br/teses/disponiveis/45/45134/tde-24072007-174800/en.php), [Saleh et al. (2011)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3138933/) and [Santos et al.(2017)](./1019.pdf)
+
 An example of a database image:
 
 ![Not found](./01_original.jpg)
 ![Not found](./01_manual1.png)
-
-O principal objetivo deste trabalho, é tentar replicar os resultados dos trabalhos de [Soares (2006)](http://www.teses.usp.br/teses/disponiveis/45/45134/tde-24072007-174800/en.php), [Saleh et al. (2011)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3138933/) and [Santos et al.(2017)](./1019.pdf)
-
 
 ### Steps ###
 **1. Selecting Color Channels**
@@ -32,8 +31,21 @@ After using all the methods described above, a binarization of the image will be
 
 **4. Morphological Operators and Other Methods**
 During each of the steps described, the possibility of using some other method of the literature will be evaluated. In addition, Santos et al. (2017) showed that using some morphological operators (erosion, dilation, and aperture) can improve the results obtained during binarization.
+
 **5. Results**
 The results obtained by the developed algorithm will be compared to the manual extraction and the works of the literature.
+
+### Partial Code ###
+
+To view the partial code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt). 
+
+The Images [AjusteL](./AjusteL.png) and [AjusteL2](./AjusteL2.png), show the initial results using the L channel. In an analogous way the images [AjusteG](./AjusteG.png) and [AjusteG2](./AjusteG2.png), show the initial results using the G channel.
+
+So far, the CLAHE algorithm and Mean Filter have been used to adjust the contrast and remove the background of the image. The next steps are:
+
+1. Test other adjustment functions and filters.
+2. Apply the binarization using the Otsu method.
+3. Test the application of morphological operators.
 
 ### References ###
 

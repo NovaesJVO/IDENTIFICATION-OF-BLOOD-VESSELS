@@ -47,6 +47,14 @@ So far, the CLAHE algorithm and Mean Filter have been used to adjust the contras
 2. Apply the binarization using the Otsu method.
 3. Test the application of morphological operators.
 
+### Images ###
+
+Partial L channel.
+![Not found](./AjusteL.png)
+![Not found](./AjusteL2.png)
+Partial G channel.
+![Not found](./AjusteG.png)
+![Not found](./AjusteG2.png)
 ### References ###
 
 1. **DRIVE Dataset Reference**: Staal, J., Abràmoff, M. D., Niemeijer, M., Viergever, M. A., and Van Ginneken, B. (2004). Ridge-based vessel segmentation in color images of the retina. IEEE transactions on medical imaging, 23(4):501–509.
@@ -56,3 +64,4 @@ So far, the CLAHE algorithm and Mean Filter have been used to adjust the contras
 3. SALEH, Marwan D.; ESWARAN, Chikkannan; MUEEN, Ahmed. An automated blood vessel segmentation algorithm using histogram equalization and automatic threshold selection. Journal of digital imaging, v. 24, n. 4, p. 564-572, 2011.
 
 4. SOARES, João Vitor Baldini. Segmentação de vasos sangüíneos em imagens de retina usando wavelets e classificadores estatísticos. 2006. Tese de Doutorado. Universidade de São Paulo.
+

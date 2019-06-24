@@ -1,4 +1,4 @@
-Image Processing Class (SCC5830) - Final Project (05/2019)
+Image Processing Class (SCC5830) - Final Project (06/2019)
 
 Student: João Victor de Oliveira Novaes
 
@@ -9,52 +9,64 @@ This project consists of developing an algorithm to segment blood vessels into r
 The main objective of this work is to try to replicate the results of the [Soares (2006)](http://www.teses.usp.br/teses/disponiveis/45/45134/tde-24072007-174800/en.php), [Saleh et al. (2011)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3138933/) and [Santos et al.(2017)](./1019.pdf)
 
 An example of a database image:
+<div style="text-align:center"> <img src="./Problem.png" />
 
-![Not found](./01_original.jpg)
-![Not found](./01_manual1.png)
+</div>
 
-### Steps ###
+### Description ###
+
 **1. Selecting Color Channels**
-The literature works using two color channels: the RGB G and the CIELAB L. Initially, the two channels will be used in order to verify which of them best fit this work.
+The literature works using two color channels: the RGB G and the CIELAB L. Neste trabalho, foram utilizados o canal L CIELAB e a imagem em escala de cinza. Para gerar a imagem em escala de cinza, foi utilizada a seguinte equação: grayscale image = ( (0.299 * R) + (0.587 * G) + (0.114 * B)). 
+![Not found](./Input.png)
 
 **2. Contrast Adjustment and Noise Removal**
-In this step, an adjustment will be made in the contrast of the image in order to highlight the vessels blood, in relation to the background of the image and possible noise. From this, the background and possible noises can be removed. For the contrast adjustment it is planned to test:
-* Contrast Limited adaptive histogram equalization (CLAHE)
-* Wavelet de Gabor 2D
-* Contrast modulation and/or Gamma adjustment
+In this step, an adjustment will be made in the contrast of the image in order to highlight the vessels blood, in relation to the background of the image and possible noise. From this, the background and possible noises can be removed. To adjust the contrast was used:
+
+* Contrast Limited adaptive histogram equalization (CLAHE): This operation, part of the idea that a good image has occurrences of all (or something close to it) the possible colors (0-255). Therefore, in order to generate a better one, one can stretch the limits of the color histogram of the image, in this way, it increases the chance of other colors than those present in the original image to appear. Generally, stretching the histogram improves the contrast of the image. However, applying this operation to the whole image does not always yield the best results, in some cases, splitting the image into smaller regions and applying histogram equalization may be better. For more information [click here](https://docs.opencv.org/3.1.0/d5/daf/tutorial_py_histogram_equalization.html).    
+
+![Not found](./CLAHE.png)
 
 **3. Removal of the Fund**
-To evidence blood vessels, Saleh et al. (2011) propose to remove the background of the image, in this case, the idea is to remove the pixels with low frequency, leaving only those of high frequency. Saleh et al. (2011) use a strategy to find the average value of a set of neighbors to form a region that can be removed from the original image.
+To evidence blood vessels, Saleh et al. (2011) propose to remove the background of the image, in this case, the idea is to remove the pixels with low frequency, leaving only those of high frequency. Saleh et al. (2011) use a strategy to find the average value of a set of neighbors to form a region that can be removed from the original image. For this, a Mean Filter was used in regions[13 13] of the image.
+
+![Not found](./Mean.png)
+Subtracting from the result of the Mean Filter the CLAHE image:
+![Not found](./Fund.png)
+
+As some parts of the image are too dark, the CLAHE has been applied again.
+![Not found](./Fund_CLAHE.png) 
+
 
 **4. Binarization**
-After using all the methods described above, a binarization of the image will be done, where it is expected to separate the vessels of the other objects of the image. Thus, the vessels will have value 1 (white), while the other regions will be 0 (black). In order to define the threshold used in binarization, the Otsu algorithm will be used to determine the threshold according to the variance between classes (0 and 1).
+After using all the methods described above, a binarization of the image will be done, where it is expected to separate the vessels of the other objects of the image. Thus, the vessels will have value 1 (white), while the other regions will be 0 (black). In order to define the threshold used in binarization, the Otsu algorithm will be used to determine the threshold according to the variance between classes.
 
-**4. Morphological Operators and Other Methods**
-During each of the steps described, the possibility of using some other method of the literature will be evaluated. In addition, Santos et al. (2017) showed that using some morphological operators (erosion, dilation, and aperture) can improve the results obtained during binarization.
+![Not found](./Binary.png)
+
+**4. Morphological Operators**
+After applying binarization using the Otsu algorithm, some noises may be present in the image. To remove this noise was used morphological operator of Area Opening or Removal of small objects. This operator converts to zero all the pixels that are part of any region with less than k pixels.
+![Not found](./Opening.png)
 
 **5. Results**
-The results obtained by the developed algorithm will be compared to the manual extraction and the works of the literature.
+The results obtained by the developed algorithm will be compared to the manual extraction. Before comparing the generated images with that of manual extraction it is necessary to remove the border, which separates where the retina begins and the black background of the image. For this, a background mask was generated, which, when subtracted from the previous image, removes the edge or decreases its presence.
 
-### Partial Code ###
+![Not found](./Mask.png)
 
-To view the partial code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt). 
+After removing the border to the image it looks like this:
 
-The Images [AjusteL](./AjusteL.png) and [AjusteL2](./AjusteL2.png), show the initial results using the L channel. In an analogous way the images [AjusteG](./AjusteG.png) and [AjusteG2](./AjusteG2.png), show the initial results using the G channel.
+![Not found](./Border.png)
 
-So far, the CLAHE algorithm and Mean Filter have been used to adjust the contrast and remove the background of the image. The next steps are:
+By comparing the pixels of the image with manual segmentation, with the generated images, the green and red pixels indicate where the applied method was wrong in relation to the segmented image.
 
-1. Test other adjustment functions and filters.
-2. Apply the binarization using the Otsu method.
-3. Test the application of morphological operators.
+![Not found](./Comparation.png)
 
-### Images ###
+### Code ###
 
-Partial L channel.
-![Not found](./AjusteL.png)
-![Not found](./AjusteL2.png)
-Partial G channel.
-![Not found](./AjusteG.png)
-![Not found](./AjusteG2.png)
+To see the code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt). 
+
+The code waits as input for the path to input image.
+
+
+
 ### References ###
 
 1. **DRIVE Dataset Reference**: Staal, J., Abràmoff, M. D., Niemeijer, M., Viergever, M. A., and Van Ginneken, B. (2004). Ridge-based vessel segmentation in color images of the retina. IEEE transactions on medical imaging, 23(4):501–509.

@@ -46,7 +46,7 @@ After using all the methods described above, a binarization of the image will be
 After applying binarization using the Otsu algorithm, some noises may be present in the image. To remove this noise was used morphological operator of Area Opening or Removal of small objects. This operator converts to zero all the pixels that are part of any region with less than k pixels.
 ![Not found](./Opening.png)
 
-**5. Results**
+**5. Experiments and Results**
 The results obtained by the developed algorithm will be compared to the manual extraction. Before comparing the generated images with that of manual extraction it is necessary to remove the border, which separates where the retina begins and the black background of the image. For this, a background mask was generated, which, when subtracted from the previous image, removes the edge or decreases its presence.
 
 ![Not found](./Mask.png)
@@ -55,20 +55,33 @@ After removing the border to the image it looks like this:
 
 ![Not found](./Border.png)
 
-By comparing the pixels of the image with manual segmentation, with the generated images, the green and red pixels indicate where the applied method was wrong in relation to the segmented image.
-
+ The image below shows the difference between the images followed by the proposed method with manual tracking. Green and red pixels indicate errors. As can be seen in the image, there is a set of pixels segmented wrongly, most of them are close to the edge of the vessels, so the proposed method has problems in separating/finding the edge of the vessels and ends up removing or adding pixels.
 ![Not found](./Comparation.png)
 
-Como pode ser visto na Figura, existe um conjunto de pixels segmentados de forma errada. A maioria deste pixels, estão próximos a borda dos vasos, logo, o metodo proposto tem problemas em separar/encontrar a borda do vasos e, acaba removendo ou adiciando pixels. Mesmo com esse problema, a taxa de acertos media ficou acima de 93%, ou seja, em media o metodo proposto consegue segmentar 93% da imagem de retina, o que fica abaixo dos metodos encontrados na literatura.  
+To evaluate how accurate the proposed method is, the following methodology was used:
 
+* Apply the prosposed method in all 40 images of the DRIVE dataset.
+* Calculate the percentage of pixels that are equal to the images of manual tracking.
+* At the end calculate the average percentage of hits.
+
+The image below shows the result of this test.
 ![Not found](./Precision.png)
 
+Even with a few pixels missing, the accuracy rate was close to 93%, that is, on average the proposed method can segment well 93% of the retinal image. This is a good result, but it is below the methods found in the literature, which can average 95% of the retinal image. Even trying to replicate the results obtained in some works, there is a difference between the results, it is believed that this difference comes from differences between implementations and / or use of libraries.
+
+As a proposal to improve the work presented, one can consider the use of the following methods that have not yet been tested by the author:
+
+* Watershed transform
+* Fourier transform and Noise Remove
+* Combine the results obtained with some machine learn process.
 
 ### Code ###
 
-To see the code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt). 
+To see the code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt).
 
-The code waits for the path to the test image, and the path to the DRIVER dataset directory
+The code expects as input the path to an input image and the path to manually segmented image. 
+
+For this DEMO, along with this file were included the input image "01_test.tif" and the manual segmentation image "01_manual1.gif" which corresponds to the input image.
 
 
 ### References ###

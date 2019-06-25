@@ -174,13 +174,10 @@ def Normaliza(img):
 
     return(img_out)
 ##################################################################################
-def Comparar(img, img_name,dir_loc,cor = [0,0,255],):
+def Comparar(img, img_ref,cor = [0,0,255],):
 
-    name = img_name.split("/")[-1]
-    ref = name.split("_")[0]
-    ref = dir_loc+"/1st_manual/"+ref+"_manual1.gif"  
 
-    img_ref = np.array(Image.open(ref),dtype='bool')
+    img_ref = np.array(Image.open(img_ref),dtype='bool')
     img_out = np.zeros((img_ref.shape[0],img_ref.shape[1],3),dtype=np.uint8)
 
     n = np.float(img_ref.shape[0] * img_ref.shape[1])
@@ -198,7 +195,7 @@ def Comparar(img, img_name,dir_loc,cor = [0,0,255],):
 
     return(img_out,float(count/n),img_ref)
 ##################################################################################
-def Segment_blood_vessel(image_name,dir_loc):
+def Segment_blood_vessel(image_name,img_ref):
     
     # Read the image 
     img = Image.open(image_name)
@@ -216,7 +213,7 @@ def Segment_blood_vessel(image_name,dir_loc):
     G = Normaliza(Luminance_1D(img))
 
     # Shows incoming image and converted images
-    plt.figure(figsize=(15,10))
+    plt.figure()
     plt.suptitle("Input, L and Grayscale")
     plt.subplot(131); plt.imshow(img); plt.title("Input")
     plt.subplot(132); plt.imshow(L , cmap="gray"); plt.title("L")
@@ -335,8 +332,8 @@ def Segment_blood_vessel(image_name,dir_loc):
     plt.show()
 
     # Compare the generated images with those of the manual image
-    img_out_L,taxa_L,_ = Comparar(out_L,image_name,dir_loc,[0,255,0])
-    img_out_G,taxa_G,img_ref = Comparar(out_G,image_name,dir_loc,[255,0,0])
+    img_out_L,taxa_L,_ = Comparar(out_L,img_ref,[0,255,0])
+    img_out_G,taxa_G,img_ref = Comparar(out_G,img_ref,[255,0,0])
 
     # Shows the result of the comparison
     plt.figure(figsize=(10,10))
@@ -349,10 +346,10 @@ def Segment_blood_vessel(image_name,dir_loc):
     # Plot the percentage of hits between images
     plt.bar(1,taxa_L,color='g')
     plt.bar(2,taxa_G,color='r')
-    plt.title('Precision')
+    plt.title('Average Score Rate')
     plt.xticks([1,2],['L', 'GrayScale'])
     plt.yticks(np.arange(0, 1, 0.09))
-    plt.ylabel('Precison')
+    plt.ylabel('Average Score')
     plt.xlabel('Channel')
     plt.legend()
 
@@ -360,8 +357,7 @@ def Segment_blood_vessel(image_name,dir_loc):
     plt.show()
 ##################################################################################
 
+image_name = str(input("Enter the path to input image: "))
+img_ref = str(input("Enter the path to reference image: "))
 
-image_name = str(input("Path to the Image: "))
-dir_loc = str(input("Path to the DRIVE Dir: "))
-
-Segment_blood_vessel(image_name,dir_loc)
+Segment_blood_vessel(image_name,img_ref)

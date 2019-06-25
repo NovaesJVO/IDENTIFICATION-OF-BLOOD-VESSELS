@@ -59,12 +59,16 @@ By comparing the pixels of the image with manual segmentation, with the generate
 
 ![Not found](./Comparation.png)
 
+Como pode ser visto na Figura, existe um conjunto de pixels segmentados de forma errada. A maioria deste pixels, estão próximos a borda dos vasos, logo, o metodo proposto tem problemas em separar/encontrar a borda do vasos e, acaba removendo ou adiciando pixels. Mesmo com esse problema, a taxa de acertos media ficou acima de 93%, ou seja, em media o metodo proposto consegue segmentar 93% da imagem de retina, o que fica abaixo dos metodos encontrados na literatura.  
+
+![Not found](./Precision.png)
+
+
 ### Code ###
 
 To see the code [click here](./Init.py). To execute the code, please install the [dependencies](./requirements.txt). 
 
-The code waits as input for the path to input image.
-
+The code waits for the path to the test image, and the path to the DRIVER dataset directory
 
 
 ### References ###
